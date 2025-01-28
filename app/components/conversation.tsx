@@ -3,7 +3,7 @@
 import { useConversation } from "@11labs/react";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
-import { FaRegUser } from "react-icons/fa6";
+//import { FaRegUser } from "react-icons/fa6";
 
 interface Message {
   source: string;
@@ -61,14 +61,14 @@ export function Conversation() {
         <button
           onClick={startConversation}
           disabled={conversation.status === "connected"}
-          className="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-300"
+          className="px-4 py-2 font-medium bg-[#B84234] text-white rounded disabled:bg-[#D1B2A1]"
         >
           Start Conversation
         </button>
         <button
           onClick={stopConversation}
           disabled={conversation.status !== "connected"}
-          className="px-4 py-2 bg-red-500 text-white rounded disabled:bg-gray-300"
+          className="px-4 py-2 font-medium bg-[#B84234]  text-white rounded disabled:bg-[#D1B2A1]"
         >
           Stop Conversation
         </button>
@@ -81,24 +81,30 @@ export function Conversation() {
           {messages.map((msg, index) => (
             <div
               key={index}
-              className={`p-3 rounded-lg text-white w-full flex gap-4 items-start ${
+              className={`p-3 rounded-lg w-full flex gap-4 items-start ${
                 msg.source === "ai"
-                  ? "bg-gray-700 self-start"
-                  : "bg-blue-500 self-end"
+                  ? "bg-[#F5E3E1] text-[#232323] self-start"
+                  : "bg-[#B84234] text-white self-end"
               }`}
             >
               {/* Image/Icon Section */}
               <div className="flex-shrink-0">
                 {msg.source === "ai" ? (
                   <Image
-                    src="/prabupada.jpeg" // Replace with your image path
+                    src="/small-logo.png" // Replace with your image path
                     alt="AI Avatar"
-                    className="w-12 h-12 rounded-full border-2 border-blue-400"
+                    className="w-12 h-12 rounded-full"
                     width={48}
                     height={48}
                   />
                 ) : (
-                  <FaRegUser className="w-8 h-8 text-white" />
+                  <Image
+                    src="/user-icon.png" // Replace with your image path
+                    alt="AI Avatar"
+                    className="w-10 h-10 rounded-full"
+                    width={48}
+                    height={48}
+                  />
                 )}
               </div>
 
@@ -114,6 +120,3 @@ export function Conversation() {
   );
 }
 
-/*
-Prabhupada
- */
