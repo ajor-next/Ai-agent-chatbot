@@ -2,7 +2,7 @@
 
 import { useConversation } from "@11labs/react";
 import Image from "next/image";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FaRegUser } from "react-icons/fa6";
 
 interface Message {
@@ -12,6 +12,7 @@ interface Message {
 
 export function Conversation() {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [agentStatus, setAgentStatus] = useState<string>("");
 
   const conversation = useConversation({
     onConnect: () => console.log("Connected"),
@@ -35,6 +36,8 @@ export function Conversation() {
       await conversation.startSession({
         agentId: process.env.NEXT_PUBLIC_AGENT_ID, // Replace with your agent ID
       });
+
+      setAgentStatus("Listening");
     } catch (error) {
       console.error("Failed to start conversation:", error);
     }
@@ -42,7 +45,15 @@ export function Conversation() {
 
   const stopConversation = useCallback(async () => {
     await conversation.endSession();
+    setAgentStatus(""); // Reset agent status when conversation ends
   }, [conversation]);
+
+  useEffect(() => {
+    // Update the agent's status dynamically
+    if (conversation.status === "connected") {
+      setAgentStatus(conversation.isSpeaking ? "Speaking" : "Listening");
+    }
+  }, [conversation.isSpeaking, conversation.status]);
 
   return (
     <div className="flex flex-col items-center gap-4">
@@ -65,7 +76,7 @@ export function Conversation() {
 
       <div className="flex flex-col items-center">
         <p>Status: {conversation.status}</p>
-        <p>Agent is {conversation.isSpeaking ? "speaking" : "listening"}</p>
+        <p>Agent is {agentStatus}</p>
         <div className="w-full flex flex-col gap-4 mt-4">
           {messages.map((msg, index) => (
             <div
@@ -102,3 +113,7 @@ export function Conversation() {
     </div>
   );
 }
+
+/*
+Prabhupada
+ */
