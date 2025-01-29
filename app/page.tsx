@@ -10,9 +10,10 @@ export default function Home() {
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed"
       }}
     >
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm  bg-opacity-0 p-8">
+      <div className="z-10 max-w-5xl w-full items-center justify-between text-sm  bg-opacity-0 p-8">
         <h1 className="text-4xl font-bold mb-8 text-center text-black">
           Prabhupada Conversational AI
         </h1>

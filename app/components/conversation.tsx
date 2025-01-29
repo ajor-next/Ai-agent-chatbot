@@ -75,8 +75,8 @@ export function Conversation() {
       </div>
 
       <div className="flex flex-col items-center">
-        <p>Status: {conversation.status}</p>
-        <p>Agent is {agentStatus}</p>
+        <p className="text-[#232323]">Status: {conversation.status}</p>
+        <p className="text-[#232323]">Agent is {agentStatus}</p>
         <div className="w-full flex flex-col gap-4 mt-4">
           {messages.map((msg, index) => (
             <div
